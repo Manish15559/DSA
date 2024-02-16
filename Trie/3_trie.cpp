@@ -1,5 +1,5 @@
 struct Node{
-    Node *links[26];
+    Node *links[2];
 
 
     bool containKey(int bit){
