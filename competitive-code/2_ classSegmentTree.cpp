@@ -7,7 +7,7 @@ class SGTree{
     }
 void build(int ind,int low,int high,int arr[]){
     if(low==high){
-        seg[ind]=arr[low];
+        seg[ind]=arr[low];   //tc-o(n)
         return;
     }
     int mid=(low+high)/2;
@@ -19,7 +19,7 @@ void build(int ind,int low,int high,int arr[]){
 int query(int ind,int low,int high,int l,int r){
     if(r<low||high<l)
     return INT_MAX;
-    if(low>=l&&high<=r)
+    if(low>=l&&high<=r)     //tc-4*o(logn)
     return seg[ind];
     int mid=(low+high)/2;
     int left=query(2*ind+1,low,mid,l,r);
@@ -28,7 +28,7 @@ int query(int ind,int low,int high,int l,int r){
 }
 void update(int ind,int low,int high,int i,int val){
     if(low==high){
-        seg[ind]=val;
+        seg[ind]=val;         //tc-o(logn)
         return;
     }
     int mid=(low+high)/2;
