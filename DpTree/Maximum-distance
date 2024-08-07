@@ -1,0 +1,38 @@
+int dfs(int node,int parent,vector<int>adj[],vector<int>&dis){
+	dis[node]=(parent!=-1)?1+dis[parent]:0;
+	int opt=-1;
+ 
+	for(auto it:adj[node]){
+		if(it!=parent){
+			int x=dfs(it,node,adj,dis);
+ 
+			if(opt==-1||dis[x]>dis[opt]) opt=x;
+		}
+	}
+ 
+	return opt==-1?node:opt;
+ 
+}
+ 
+void solve(){
+	int n;
+	cin>>n;
+	vector<int>adj[n+1];
+	for(int i=0;i<n-1;i++){
+		int x,y;
+		cin>>x>>y;
+		adj[x].pb(y);
+		adj[y].pb(x);
+	}
+	// for(auto it:adj[1]) cout<<it<<endl;
+	vector<int>dis(n+1,0),dis2(n+1,0);
+	int max1=dfs(1,-1,adj,dis);
+	int max2=dfs(max1,-1,adj,dis);
+	dfs(max2,-1,adj,dis2);
+ 
+	for(int i=1;i<=n;i++) cout<<max(dis[i],dis2[i])<<endl;
+ 
+		
+ 
+ 
+}
