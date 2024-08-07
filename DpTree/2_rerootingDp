@@ -1,1 +1,45 @@
+const int N=2e5+10;
+vector<int>mx1(N,0),mx2(N,0),c(N,0);
+ 
+void dfs1(int node,int parent,vector<int>adj[]){
+	for(auto it:adj[node]){
+		if(it!=parent){
+			dfs1(it,node,adj);
+ 
+			if(mx1[it]+1>mx1[node]){
+				mx2[node]=mx1[node];
+				mx1[node]=mx1[it]+1;
+				c[node]=it;
+			}
+			else if(mx1[it]+1>mx2[node]){
+				mx2[node]=mx1[it]+1;
+			}
+ 
+		}
+	}
+}
+ 
+void dfs2(int node,int parent,vector<int>adj[]){
+	for(auto it:adj[node]){
+		if(it!=parent){
+			if(c[node]==it){
+				if(mx2[node]+1>mx1[it]){
+					mx2[it]=mx1[it];
+					mx1[it]=mx2[node]+1;
+					c[it]=node;
+ 
+				}
+				else if(mx2[node]+1>mx2[it]){
+					mx2[it]=1+mx2[node];
+				}
+			}
+			else{
+				mx2[it]=mx1[it];
+				mx1[it]=1+mx1[node];
+				c[it]=node;
+			}
+			dfs2(it,node,adj);
+		}
+	}
+}
 
